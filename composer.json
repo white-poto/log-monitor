@@ -17,7 +17,8 @@
   "type": "package",
   "require": {
     "php": ">=5.3.0",
-    "jenner/simple_fork": "0.6"
+    "jenner/simple_fork": "0.6",
+    "monolog/monolog": "1.17.1"
   },
   "autoload": {
     "psr-4": {
