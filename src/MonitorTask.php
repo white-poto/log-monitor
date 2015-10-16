@@ -14,7 +14,7 @@ use Jenner\LogMonitor\Notification\NotificationInterface;
 use Jenner\LogMonitor\Reader\AbstractReader;
 use Jenner\SimpleFork\Process;
 
-class MonitorProcess extends Process
+class MonitorTask extends Process
 {
     /**
      * @var AbstractReader
