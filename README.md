@@ -5,7 +5,7 @@ A active log monitor based on tail command.
 Why use log-monitor?
 -----------------
 Some times we want to known what happen when crontab task is running or 
-what errors the had been written into error log by php script, and we want
+what errors had been written into error log by php script, and we want
 to know quickly.
 log-monitor can help you to monitor the log and notify the users who want to know.
 
