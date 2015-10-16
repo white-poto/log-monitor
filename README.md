@@ -1,6 +1,6 @@
 log-monitor
 ===============
-A active log monitor based on tail command.
+An active log monitor based on tail command.
 
 Why use log-monitor?
 -----------------
