@@ -32,10 +32,11 @@ $process->wait();
 
 How it works?
 ----------------------
-When you create a MonitorProcess object and call the run method, 
-it will start a sub process to call the tail command. Then it will 
+When you create a MonitorTask object and call the `run` method, 
+it will start a sub process to call the `tail` command. Then it will 
 read from the pipe and check the log is error or not. If there is an
 error, it will call the notification to notify users who want to know.
+Just do not forget to call `wait` method to wait the sub process.
 
 If you have many logs to monitor, you can use the Monitor to manage them.
 show you the code:
@@ -51,4 +52,4 @@ $monitor->start();
 $monitor->wait();
 ```
 
-Just remember that when you call the start method, do not forget to call wait method.
+Just remember that when you call the `start` method, do not forget to call `wait` method.
