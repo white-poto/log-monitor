@@ -17,7 +17,7 @@ What can log-monitor do?
 + custom notification interface, which will notify the users
 + custom reader interface, if you do not want to use the tail command
 
-How to use log-monitro?
+How to use log-monitor?
 -----------------------
 talk is cheap, show you the code:
 ```php
