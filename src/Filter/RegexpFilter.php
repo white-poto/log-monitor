@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Jenner
- * Date: 2015/10/14
- * Time: 10:10
+ * User: Administrator
+ * Date: 2015/10/17
+ * Time: 14:38
  */
 
 namespace Jenner\LogMonitor\Filter;
@@ -11,20 +11,35 @@ namespace Jenner\LogMonitor\Filter;
 
 use Jenner\LogMonitor\Reader\AbstractReader;
 
-class ExceptionFilter implements FilterInterface
+class RegexpFilter implements FilterInterface
 {
+    /**
+     * @var array
+     */
+    protected $regexps;
+
+    /**
+     * @param array $regexps
+     */
+    public function __construct(array $regexps)
+    {
+        $this->regexps = $regexps;
+    }
+
     /**
      * @param $data
      * @return bool
      */
     public function filter($data)
     {
-        if (stristr($data, 'exception')) {
-            return false;
+        foreach ($this->regexps as $regexp) {
+            if (preg_match($regexp, $data) != 0) {
+                return true;
+            }
         }
-        return true;
-    }
 
+        return false;
+    }
 
     /**
      * get more ten lines
