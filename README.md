@@ -22,7 +22,7 @@ How to use log-monitro?
 talk is cheap, show you the code:
 ```php
 $reader = new \Jenner\LogMonitor\Reader\Reader('/var/log/messages');
-$filter = new Jenner\LogMonitor\Filter\ExceptionFilter();
+$filter = new Jenner\LogMonitor\Filter\MatchFilter("exception");
 $notify = new \Jenner\LogMonitor\Notification\EchoNotification();
 
 $process = new \Jenner\LogMonitor\MonitorTask($reader, $filter, $notify);
@@ -42,7 +42,7 @@ If you have many logs to monitor, you can use the Monitor to manage them.
 show you the code:
 ```php
 $reader = new \Jenner\LogMonitor\Reader\Reader('/var/log/messages');
-$filter = new Jenner\LogMonitor\Filter\ExceptionFilter();
+$filter = new Jenner\LogMonitor\Filter\MatchFilter("exception");
 $notify = new \Jenner\LogMonitor\Notification\EchoNotification();
 
 $task = new \Jenner\LogMonitor\MonitorTask($reader, $filter, $notify);
