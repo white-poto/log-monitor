@@ -7,7 +7,7 @@
  */
 
 $reader = new \Jenner\LogMonitor\Reader\Reader('/var/log/messages');
-$filter = new Jenner\LogMonitor\Filter\ExceptionFilter();
+$filter = new Jenner\LogMonitor\Filter\MatchFilter("exception");
 $notify = new \Jenner\LogMonitor\Notification\EchoNotification();
 
 $process = new \Jenner\LogMonitor\MonitorTask($reader, $filter, $notify);

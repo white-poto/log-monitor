@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrator
+ * User: Jenner
  * Date: 2015/10/17
  * Time: 14:38
  */
@@ -21,9 +21,13 @@ class RegexpFilter implements FilterInterface
     /**
      * @param array $regexps
      */
-    public function __construct(array $regexps)
+    public function __construct($regexps)
     {
-        $this->regexps = $regexps;
+        if (is_array($regexps)) {
+            $this->regexps = $regexps;
+        } else {
+            $this->regexps = array($regexps);
+        }
     }
 
     /**

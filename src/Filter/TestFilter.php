@@ -16,7 +16,7 @@ class TestFilter implements FilterInterface
 
     public function filter($data)
     {
-        return false;
+        return true;
     }
 
     public function getErrorMessage($data, AbstractReader $reader)

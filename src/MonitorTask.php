@@ -62,7 +62,7 @@ class MonitorTask extends Process
     {
         $this->reader->open();
         while (($line = $this->reader->read()) !== false) {
-            if (!$this->filter->filter($line)) {
+            if ($this->filter->filter($line)) {
                 $message = $this->filter->getErrorMessage($line, $this->reader);
                 $this->notify->send($this->reader->getFile(), $message);
             }
