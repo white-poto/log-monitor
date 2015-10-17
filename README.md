@@ -49,7 +49,6 @@ $task = new \Jenner\LogMonitor\MonitorTask($reader, $filter, $notify);
 $monitor = new \Jenner\LogMonitor\Monitor();
 $monitor->addTask($task);
 $monitor->start();
-$monitor->wait();
 ```
 
 Just remember that when you call the `start` method, do not forget to call `wait` method.
