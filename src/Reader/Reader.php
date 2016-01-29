@@ -21,13 +21,30 @@ class Reader extends AbstractReader
      */
     protected $handle;
 
+    protected $pipes;
+
+    /**
+     * @var resource tail process
+     */
+    protected $process;
+
+
     /**
      * open stream
      */
     public function open()
     {
         $command = "tail -f {$this->file} 2>&1";
-        $this->handle = popen($command, 'r');
+        $descriptors = array(
+            0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+            1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+            2 => array("file", "/tmp/adsys_log_monitor.log", "a") // stderr is a file to write to
+        );
+
+        $cwd = '/tmp';
+        $this->process = proc_open($command, $descriptors, $this->pipes, $cwd);
+        stream_set_blocking($this->pipes[1], false);
+        $this->handle = $this->pipes[1];
     }
 
     /**
@@ -39,10 +56,20 @@ class Reader extends AbstractReader
     {
         if (!$this->hasMore()) return false;
 
-        if (!is_null($length)) {
-            return fgets($this->handle, $length);
+        $content = false;
+        while(true) {
+            if (!is_null($length)) {
+                $content = fgets($this->handle, $length);
+            } else {
+                $content = fgets($this->handle);
+            }
+            if($content !== false) {
+                break;
+            }
+            sleep(1);
         }
-        return fgets($this->handle);
+
+        return $content;
     }
 
     /**
@@ -60,6 +87,23 @@ class Reader extends AbstractReader
      */
     public function close()
     {
-        return fclose($this->handle);
+        $status = proc_get_status($this->process);
+        if($status['running'] == true) { //process ran too long, kill it
+            //close all pipes that are still open
+            @fclose($this->pipes[0]); //stdin
+            @fclose($this->pipes[1]); //stdout
+            @fclose($this->pipes[2]); //stderr
+            //get the parent pid of the process we want to kill
+            $parent_pid = $status['pid'];
+            //use ps to get all the children of this process, and kill them
+            $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $parent_pid`);
+            foreach($pids as $pid) {
+                if(is_numeric($pid)) {
+                    posix_kill($pid, 9); //9 is the SIGKILL signal
+                }
+            }
+
+            proc_close($this->process);
+        }
     }
 }
