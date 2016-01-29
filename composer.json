@@ -1,7 +1,7 @@
 {
   "name": "jenner/log-monitor",
   "description": "monitoring and alerting of error log",
-  "version": "0.1",
+  "version": "0.2",
   "keywords": [
     "log monitor",
     "monitor"
