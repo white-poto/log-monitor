@@ -9,8 +9,6 @@
 namespace Jenner\LogMonitor;
 
 
-use Jenner\SimpleFork\Pool;
-use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 

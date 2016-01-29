@@ -6,25 +6,26 @@
  * Time: 10:39
  */
 
-namespace Jenner\LogMonitor;
+namespace Jenner\LogMonitor\Factory;
 
 
-use Jenner\LogMonitor\Filter\ExceptionFilter;
+use Jenner\LogMonitor\Reader\Reader;
 
-class FilterFactory
+class ReaderFactory
 {
     /**
+     * @param $file
      * @param null $classname
-     * @return ExceptionFilter
+     * @return Reader
      */
-    public static function create($classname = null)
+    public static function create($file, $classname = null)
     {
         if (is_object($classname)) {
             return $classname;
         }
 
         if (is_null($classname)) {
-            return new ExceptionFilter();
+            return new Reader($file);
         }
 
         if (!class_exists($classname)) {
@@ -32,11 +33,11 @@ class FilterFactory
         }
 
         $reflect = new \ReflectionClass($classname);
-        $parent_class = "\\AdTeam\\LogMonitor\\Filter\\FilterInterface";
+        $parent_class = "\\AdTeam\\LogMonitor\\Reader\\AbstractReader";
         if (!$reflect->isSubclassOf($parent_class)) {
             throw new \RuntimeException($classname . ' must be a sub class of ' . $parent_class);
         }
 
-        return new $classname();
+        return new $classname($file);
     }
 }
