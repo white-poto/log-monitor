@@ -48,6 +48,7 @@ class Monitor
 
     /**
      * start monitor
+     * this method will block
      */
     public function start()
     {
