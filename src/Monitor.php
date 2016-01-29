@@ -9,6 +9,8 @@
 namespace Jenner\LogMonitor;
 
 
+use Jenner\SimpleFork\Pool;
+use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -41,7 +43,7 @@ class Monitor
 
     public function addTask(MonitorTask $task)
     {
-        $this->pool->submit($task);
+        $this->pool->execute($task);
     }
 
     /**
@@ -49,7 +51,6 @@ class Monitor
      */
     public function start()
     {
-        $this->pool->start();
         pcntl_signal(SIGTERM, array($this, 'signal'));
         $this->pool->wait();
     }
@@ -58,7 +59,7 @@ class Monitor
     {
         switch ($signal) {
             case SIGTERM:
-                $this->pool->shutdown(SIGKILL);
+                $this->pool->shutdown(SIGTERM);
                 break;
         }
     }

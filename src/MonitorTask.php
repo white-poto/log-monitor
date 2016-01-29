@@ -32,11 +32,6 @@ class MonitorTask extends Process
     protected $notify;
 
     /**
-     * @var int check reader after $usleep ms every time.
-     */
-    protected $usleep;
-
-    /**
      * @param AbstractReader $reader
      * @param FilterInterface $filter
      * @param NotificationInterface $notify
@@ -44,19 +39,19 @@ class MonitorTask extends Process
     public function __construct(
         AbstractReader $reader,
         FilterInterface $filter,
-        NotificationInterface $notify,
-        $usleep = 10
+        NotificationInterface $notify
     )
     {
         parent::__construct();
         $this->reader = $reader;
         $this->filter = $filter;
         $this->notify = $notify;
-        $this->usleep = $usleep;
+
+        $this->registerSignalHandler(SIGTERM, array($this, 'signalHandler'));
     }
 
     /**
-     *
+     * sub process run
      */
     public function run()
     {
@@ -66,7 +61,18 @@ class MonitorTask extends Process
                 $message = $this->filter->getErrorMessage($line, $this->reader);
                 $this->notify->send($this->reader->getFile(), $message);
             }
-            usleep($this->usleep);
+        }
+    }
+
+    protected function signalHandler($signal)
+    {
+        switch ($signal) {
+            case SIGTERM :
+                $this->reader->close();
+                unset($this->reader);
+                unset($this->filter);
+                unset($this->notify);
+                exit(0);
         }
     }
 }
