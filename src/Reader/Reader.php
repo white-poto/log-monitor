@@ -36,15 +36,14 @@ class Reader extends AbstractReader
     {
         $command = "tail -F {$this->file}";
         $descriptors = array(
-            0 => array("pipe", "w"),  // stdin is a pipe that the child will read from
-            1 => array("pipe", "r"),  // stdout is a pipe that the child will write to
+            0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+            1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
             2 => array("file", "/var/log/log-monitor.log", "a") // stderr is a file to write to
         );
 
         $cwd = '/tmp';
         $this->process = proc_open($command, $descriptors, $this->pipes, $cwd);
-        stream_set_blocking($this->pipes[1], false);
-        var_dump($this->pipes[1]);
+        //stream_set_blocking($this->pipes[1], false);
         $this->handle = $this->pipes[1];
     }
 
