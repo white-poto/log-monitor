@@ -26,10 +26,9 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         touch($file);
         $reader = new Reader($file);
         $reader->open();
-        file_put_contents($file, "test", FILE_APPEND);
+        file_put_contents($file, "test\n", FILE_APPEND);
         $line = $reader->read();
         var_dump($line);
-
         $this->assertEquals($line, "test");
     }
 }
