@@ -34,11 +34,11 @@ class Reader extends AbstractReader
      */
     public function open()
     {
-        $command = "tail -F {$this->file}";
+        $command = "tail -f {$this->file}";
         $descriptors = array(
             0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-            2 => array("file", "/var/log/log-monitor.log", "w+") // stderr is a file to write to
+            2 => array("file", "/var/log/log-monitor.log", "a") // stderr is a file to write to
         );
 
         $cwd = '/tmp';
