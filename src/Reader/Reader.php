@@ -58,6 +58,7 @@ class Reader extends AbstractReader
 
         $content = false;
         while(true) {
+            var_dump(feof($this->handle));
             if (!is_null($length)) {
                 $content = fgets($this->handle, $length);
             } else {
