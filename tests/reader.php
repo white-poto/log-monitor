@@ -9,7 +9,7 @@
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 $reader = new \Jenner\LogMonitor\Reader\Reader("/tmp/log-monitor.log");
-
+$reader->open();
 while($reader->hasMore()) {
     var_dump($reader->read());
 }
