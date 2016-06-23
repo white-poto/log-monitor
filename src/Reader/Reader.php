@@ -49,7 +49,7 @@ class Reader extends AbstractReader
     /**
      * read from stream
      * @param null $length
-     * @return bool|string If there is no more data to read in the file pointer, then FALSE is returned.
+     * @return bool|string If there is no more data to read, the process will be blocked
      */
     public function read($length = null)
     {
