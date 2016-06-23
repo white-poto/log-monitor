@@ -22,7 +22,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Jenner\\LogMonitor\\": "src/"
+      "Jenner\\LogMonitor\\": "src/",
+      "Jenner\\LogMonitor\\Test\\": "tests/"
     }
   }
 }

@@ -34,7 +34,7 @@ class Reader extends AbstractReader
      */
     public function open()
     {
-        $command = "tail -f {$this->file} 2>&1";
+        $command = "tail -F {$this->file}";
         $descriptors = array(
             0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
@@ -105,5 +105,10 @@ class Reader extends AbstractReader
 
             proc_close($this->process);
         }
+    }
+
+    public function __destruct()
+    {
+        $this->close();
     }
 }

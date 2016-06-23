@@ -15,6 +15,9 @@ abstract class AbstractReader
 
     public function __construct($file)
     {
+        if(!file_exists($file)) {
+            throw new \Exception("log file is not exists. file:" . $file);
+        }
         $this->file = $file;
     }
 
