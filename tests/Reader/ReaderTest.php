@@ -29,6 +29,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($reader->read());
         file_put_contents($file, "test", FILE_APPEND);
         $line = $reader->read();
+        var_dump($line);
         $this->assertEquals($line, "test");
         $this->assertFalse($reader->read());
     }
