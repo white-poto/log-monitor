@@ -31,14 +31,14 @@ $process->wait();
 ```
 There are three interfaces:`AbstractReader`, `NotificationInterface`, `FilterInterface`.  
 If you want to read log for somewhere else, you can create a class which extends `AbstractReader`.  
-If you want to filter your log in different way, you can create a class which implements `FilterInterface`.
+If you want to filter your log in different way, you can create a class which implements `FilterInterface`.  
 If you want to send message to somewhere else, you can create a class which implements `NotificationInterface`.  
 
 How it works?
 ----------------------
-When you create a MonitorTask object and call the `run` method, 
-it will start a sub process to call the `tail` command. Then it will 
-read from the pipe and check the log that if it is error or not. If there is an
+When you have created a MonitorTask object and call the `run` method, 
+it will start a sub process and call the `tail` command in the sub process. Then it will 
+read from the pipe and check the log by filter that if it is error or not. If there is an
 error, it will call the notification to notify the users who want to know.
 Just do not forget to call `wait` method to wait the sub process.
 
