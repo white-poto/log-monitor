@@ -43,7 +43,6 @@ class Reader extends AbstractReader
 
         $cwd = '/tmp';
         $this->process = proc_open($command, $descriptors, $this->pipes, $cwd);
-        stream_set_blocking($this->pipes[1], false);
         $this->handle = $this->pipes[1];
     }
 
