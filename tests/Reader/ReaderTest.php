@@ -16,7 +16,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     public function testException()
     {
         $file = "/tmp/log-monitor.log";
-        $this->setExpectedException(\Exception::class, "log file is not exists. file:" . $file);
+        $this->setExpectedException("\\Exception", "log file is not exists. file:" . $file);
         if(file_exists($file)) unlink($file);
         new Reader($file);
     }
