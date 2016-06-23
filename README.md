@@ -29,6 +29,10 @@ $process = new \Jenner\LogMonitor\MonitorTask($reader, $filter, $notify);
 $process->run();
 $process->wait();
 ```
+There are three interfaces:`AbstractReader`, `NotificationInterface`, `FilterInterface`.  
+If you want to read log for somewhere else, you can create a class which extends `AbstractReader`.  
+If you want to filter your log in different way, you can create a class which implements `FilterInterface`.
+If you want to send message to somewhere else, you can create a class which implements `NotificationInterface`.  
 
 How it works?
 ----------------------
