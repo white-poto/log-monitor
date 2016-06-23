@@ -25,18 +25,11 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $file = "/tmp/log-monitor.log";
         touch($file);
         $reader = new Reader($file);
-        echo 'open' . PHP_EOL;
         $reader->open();
-        echo 'has more 1' . PHP_EOL;
-        $this->assertTrue($reader->hasMore());
-        echo 'put' . PHP_EOL;
+        $this->assertFalse($reader->read());
         file_put_contents($file, "test", FILE_APPEND);
-        echo 'has more 2' . PHP_EOL;
-        $this->assertTrue($reader->hasMore());
-        echo 'read' . PHP_EOL;
         $line = $reader->read();
         $this->assertEquals($line, "test");
-        echo 'has more 3' . PHP_EOL;
-        $this->assertFalse($reader->hasMore());
+        $this->assertFalse($reader->read());
     }
 }

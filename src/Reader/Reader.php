@@ -38,7 +38,7 @@ class Reader extends AbstractReader
         $descriptors = array(
             0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-            2 => array("file", "/tmp/adsys_log_monitor.log", "a") // stderr is a file to write to
+            2 => array("file", "/var/log/log-monitor.log", "a") // stderr is a file to write to
         );
 
         $cwd = '/tmp';
@@ -50,36 +50,17 @@ class Reader extends AbstractReader
     /**
      * read from stream
      * @param null $length
-     * @return bool|string
+     * @return bool|string If there is no more data to read in the file pointer, then FALSE is returned.
      */
     public function read($length = null)
     {
-        if (!$this->hasMore()) return false;
-
-        $content = false;
-        while(true) {
-            var_dump(feof($this->handle));
-            if (!is_null($length)) {
-                $content = fgets($this->handle, $length);
-            } else {
-                $content = fgets($this->handle);
-            }
-            if($content !== false) {
-                break;
-            }
-            sleep(1);
+        if (!is_null($length)) {
+            $content = fgets($this->handle, $length);
+        } else {
+            $content = fgets($this->handle);
         }
 
         return $content;
-    }
-
-    /**
-     * if has more data or not
-     * @return bool
-     */
-    public function hasMore()
-    {
-        return !feof($this->handle);
     }
 
     /**
@@ -89,7 +70,7 @@ class Reader extends AbstractReader
     public function close()
     {
         $status = proc_get_status($this->process);
-        if($status['running'] == true) { //process ran too long, kill it
+        if ($status['running'] == true) { //process ran too long, kill it
             //close all pipes that are still open
             @fclose($this->pipes[0]); //stdin
             @fclose($this->pipes[1]); //stdout
@@ -98,8 +79,8 @@ class Reader extends AbstractReader
             $parent_pid = $status['pid'];
             //use ps to get all the children of this process, and kill them
             $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $parent_pid`);
-            foreach($pids as $pid) {
-                if(is_numeric($pid)) {
+            foreach ($pids as $pid) {
+                if (is_numeric($pid)) {
                     posix_kill($pid, 9); //9 is the SIGKILL signal
                 }
             }

@@ -43,12 +43,6 @@ abstract class AbstractReader
     abstract public function read();
 
     /**
-     * if has more data or not
-     * @return mixed
-     */
-    abstract public function hasMore();
-
-    /**
      * close stream
      * @return mixed
      */
