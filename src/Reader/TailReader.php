@@ -77,6 +77,9 @@ class TailReader implements ReaderInterface
      */
     public function close()
     {
+        if(!is_resource($this->process)) {
+            return;
+        }
         $status = proc_get_status($this->process);
         if ($status['running'] == true) { //process ran too long, kill it
             //close all pipes that are still open
