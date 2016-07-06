@@ -28,7 +28,7 @@ class TailReader implements ReaderInterface
             throw new \InvalidArgumentException("empty param " . self::LOG_FILE);
         }
         if (!file_exists($config[self::LOG_FILE])) {
-            throw new \RuntimeException("log file is not exists");
+            throw new \RuntimeException("log file is not exists. file:" . $config[self::LOG_FILE]);
         }
         $this->file = $config[self::LOG_FILE];
         if (empty($config[self::ERR_FILE])) {
