@@ -26,10 +26,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $file = "/tmp/log-monitor.log";
         touch($file);
         $reader = new TailReader();
-        $config = array(
-            TailReader::LOG_FILE => $file,
-        );
-        $reader->configure($config);
+        $reader->configure($file);
         $reader->open();
         file_put_contents($file, "test\n", FILE_APPEND);
         $line = $reader->read();

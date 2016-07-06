@@ -17,31 +17,12 @@ class TailReader implements ReaderInterface
     protected $pipes;
     protected $process;
 
-    // log file which need to be monitored
-    const LOG_FILE = "log_file";
-    // error log for `tail` command
-    const ERR_FILE = "err_file";
-
-    public function configure(array $config)
+    public function configure($file)
     {
-        if (empty($config[self::LOG_FILE])) {
-            throw new \InvalidArgumentException("empty param " . self::LOG_FILE);
+        if (!file_exists($file)) {
+            throw new \RuntimeException("log file is not exists. file:" . $file);
         }
-        if (!file_exists($config[self::LOG_FILE])) {
-            throw new \RuntimeException("log file is not exists. file:" . $config[self::LOG_FILE]);
-        }
-        $this->file = $config[self::LOG_FILE];
-        if (empty($config[self::ERR_FILE])) {
-            $this->error_file = "/dev/null";
-        } else {
-            if (!file_exists($config[self::ERR_FILE])) {
-                $touch = touch($config[self::ERR_FILE]);
-                if ($touch === false) {
-                    throw new \RuntimeException("create error file failed");
-                }
-            }
-            $this->error_file = $config[self::ERR_FILE];
-        }
+        $this->file = $file;
     }
 
     /**

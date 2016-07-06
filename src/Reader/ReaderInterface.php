@@ -12,10 +12,10 @@ namespace Jenner\LogMonitor\Reader;
 interface ReaderInterface
 {
     /**
-     * @param array $config
+     * @param mixed $file
      * @return mixed
      */
-    public function configure(array $config);
+    public function configure($file);
 
     /**
      * open stream

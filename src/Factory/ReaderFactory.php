@@ -12,11 +12,11 @@ namespace Jenner\LogMonitor\Factory;
 class ReaderFactory
 {
     /**
-     * @param array $config
+     * @param $file
      * @param $classname
      * @return mixed
      */
-    public static function create($config, $classname)
+    public static function create($file, $classname)
     {
         if (is_object($classname)) {
             return $classname;
@@ -37,7 +37,7 @@ class ReaderFactory
         }
 
         $obj = new $classname();
-        $obj->configure($config);
+        $obj->configure($file);
 
         return $obj;
     }
