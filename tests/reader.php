@@ -15,4 +15,6 @@ $reader->configure(array(
 ));
 
 $reader->open();
-var_dump($reader->read());
+while(true) {
+    var_dump($reader->read());
+}
