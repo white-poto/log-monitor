@@ -14,11 +14,12 @@ class EchoNotification implements NotificationInterface
 
     /**
      * send message to members
+     * @param array $config
      * @param $message
      * @return mixed
      */
-    public function send($file, $message)
+    public function send($config, $message)
     {
-        echo 'file:' . $file . '. message:' . $message . PHP_EOL;
+        echo 'config:' . json_encode($config) . '. message:' . $message . PHP_EOL;
     }
 }

@@ -9,7 +9,7 @@
 namespace Jenner\LogMonitor\Filter;
 
 
-use Jenner\LogMonitor\Reader\AbstractReader;
+use Jenner\LogMonitor\Reader\ReaderInterface;
 
 class TestFilter implements FilterInterface
 {
@@ -19,7 +19,7 @@ class TestFilter implements FilterInterface
         return true;
     }
 
-    public function getErrorMessage($data, AbstractReader $reader)
+    public function getErrorMessage($data, ReaderInterface $reader)
     {
         return $data;
     }

@@ -8,8 +8,7 @@
 
 namespace Jenner\LogMonitor\Test\Reader;
 
-
-use Jenner\LogMonitor\Reader\Reader;
+use Jenner\LogMonitor\Reader\TailReader;
 
 class ReaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,13 +17,19 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $file = "/tmp/log-monitor.log";
         $this->setExpectedException("\\Exception", "log file is not exists. file:" . $file);
         if(file_exists($file)) unlink($file);
-        new Reader($file);
+        $config = array('log_file' => $file);
+        $reader = new TailReader();
+        $reader->configure($config);
     }
 
     public function testRead() {
         $file = "/tmp/log-monitor.log";
         touch($file);
-        $reader = new Reader($file);
+        $reader = new TailReader();
+        $config = array(
+            TailReader::LOG_FILE => $file,
+        );
+        $reader->configure($config);
         $reader->open();
         file_put_contents($file, "test\n", FILE_APPEND);
         $line = $reader->read();

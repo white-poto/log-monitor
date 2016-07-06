@@ -13,9 +13,9 @@ interface NotificationInterface
 {
     /**
      * send message to members
-     * @param $file
+     * @param array $config
      * @param $message
      * @return mixed
      */
-    public function send($file, $message);
+    public function send($config, $message);
 }

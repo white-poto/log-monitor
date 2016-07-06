@@ -11,13 +11,13 @@ namespace Jenner\LogMonitor;
 
 use Jenner\LogMonitor\Filter\FilterInterface;
 use Jenner\LogMonitor\Notification\NotificationInterface;
-use Jenner\LogMonitor\Reader\AbstractReader;
+use Jenner\LogMonitor\Reader\ReaderInterface;
 use Jenner\SimpleFork\Process;
 
 class MonitorTask extends Process
 {
     /**
-     * @var AbstractReader
+     * @var ReaderInterface
      */
     protected $reader;
 
@@ -32,12 +32,12 @@ class MonitorTask extends Process
     protected $notify;
 
     /**
-     * @param AbstractReader $reader
+     * @param ReaderInterface $reader
      * @param FilterInterface $filter
      * @param NotificationInterface $notify
      */
     public function __construct(
-        AbstractReader $reader,
+        ReaderInterface $reader,
         FilterInterface $filter,
         NotificationInterface $notify
     )
@@ -58,7 +58,7 @@ class MonitorTask extends Process
         $this->reader->open();
         while (true) {
             $line = $this->reader->read();
-            if($line === false) {
+            if ($line === false) {
                 usleep(200);
                 continue;
             }

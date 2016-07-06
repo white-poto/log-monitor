@@ -28,13 +28,13 @@ class LoggerNotification implements NotificationInterface
 
     /**
      * send message to members
-     * @param $file
+     * @param array $config
      * @param $message
      * @return mixed
      */
-    public function send($file, $message)
+    public function send($config, $message)
     {
-        $message = 'file:' . $file . PHP_EOL . 'message:' . $message . PHP_EOL;
+        $message = 'config:' . json_encode($config) . PHP_EOL . 'message:' . $message . PHP_EOL;
         $this->logger->info($message);
     }
 }

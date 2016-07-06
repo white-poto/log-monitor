@@ -9,13 +9,13 @@
 namespace Jenner\LogMonitor\Factory;
 
 
-use Jenner\LogMonitor\Filter\ExceptionFilter;
+use Jenner\LogMonitor\Filter\FilterInterface;
 
 class FilterFactory
 {
     /**
      * @param null $class_name
-     * @return ExceptionFilter
+     * @return FilterInterface
      */
     public static function create($class_name)
     {
@@ -23,8 +23,8 @@ class FilterFactory
             return $class_name;
         }
 
-        if (is_null($class_name)) {
-            return new ExceptionFilter();
+        if (empty($class_name)) {
+            throw new \InvalidArgumentException("empty class name");
         }
 
         if (!class_exists($class_name)) {

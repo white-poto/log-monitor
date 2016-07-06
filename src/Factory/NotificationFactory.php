@@ -14,17 +14,17 @@ use Jenner\LogMonitor\Notification\EchoNotification;
 class NotificationFactory
 {
     /**
-     * @param null $classname
+     * @param $classname
      * @return EchoNotification
      */
-    public static function create($classname = null)
+    public static function create($classname)
     {
         if (is_object($classname)) {
             return $classname;
         }
 
-        if (is_null($classname)) {
-            return new EchoNotification();
+        if (empty($classname)) {
+            throw new \InvalidArgumentException("empty class name");
         }
 
         if (!class_exists($classname)) {

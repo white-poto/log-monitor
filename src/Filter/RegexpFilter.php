@@ -9,7 +9,7 @@
 namespace Jenner\LogMonitor\Filter;
 
 
-use Jenner\LogMonitor\Reader\AbstractReader;
+use Jenner\LogMonitor\Reader\ReaderInterface;
 
 class RegexpFilter implements FilterInterface
 {
@@ -48,10 +48,10 @@ class RegexpFilter implements FilterInterface
     /**
      * get more ten lines
      * @param $data
-     * @param AbstractReader $reader
+     * @param ReaderInterface $reader
      * @return string
      */
-    public function getErrorMessage($data, AbstractReader $reader)
+    public function getErrorMessage($data, ReaderInterface $reader)
     {
         $message = $data;
         $max_line = 10;

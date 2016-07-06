@@ -9,11 +9,11 @@
 namespace Jenner\LogMonitor\Filter;
 
 
-use Jenner\LogMonitor\Reader\AbstractReader;
+use Jenner\LogMonitor\Reader\ReaderInterface;
 
 interface FilterInterface
 {
     public function filter($data);
 
-    public function getErrorMessage($data, AbstractReader $reader);
+    public function getErrorMessage($data, ReaderInterface $reader);
 }

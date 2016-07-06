@@ -9,7 +9,7 @@
 namespace Jenner\LogMonitor\Reader;
 
 
-class Reader implements ReaderInterface
+class TailReader implements ReaderInterface
 {
     protected $file;
     protected $error_file;
@@ -24,13 +24,22 @@ class Reader implements ReaderInterface
 
     public function configure(array $config)
     {
-        if(empty($config[self::LOG_FILE])) {
+        if (empty($config[self::LOG_FILE])) {
             throw new \InvalidArgumentException("empty param " . self::LOG_FILE);
         }
+        if (!file_exists($config[self::LOG_FILE])) {
+            throw new \RuntimeException("log file is not exists");
+        }
         $this->file = $config[self::LOG_FILE];
-        if(empty($config[self::ERR_FILE])) {
+        if (empty($config[self::ERR_FILE])) {
             $this->error_file = "/dev/null";
-        }else {
+        } else {
+            if (!file_exists($config[self::ERR_FILE])) {
+                $touch = touch($config[self::ERR_FILE]);
+                if ($touch === false) {
+                    throw new \RuntimeException("create error file failed");
+                }
+            }
             $this->error_file = $config[self::ERR_FILE];
         }
     }

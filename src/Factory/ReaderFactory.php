@@ -9,23 +9,21 @@
 namespace Jenner\LogMonitor\Factory;
 
 
-use Jenner\LogMonitor\Reader\Reader;
-
 class ReaderFactory
 {
     /**
-     * @param $file
-     * @param null $classname
-     * @return Reader
+     * @param array $config
+     * @param $classname
+     * @return mixed
      */
-    public static function create($file, $classname = null)
+    public static function create($config, $classname)
     {
         if (is_object($classname)) {
             return $classname;
         }
 
-        if (is_null($classname)) {
-            return new Reader($file);
+        if (empty($classname)) {
+            throw new \InvalidArgumentException("empty class name");
         }
 
         if (!class_exists($classname)) {
@@ -33,11 +31,14 @@ class ReaderFactory
         }
 
         $reflect = new \ReflectionClass($classname);
-        $parent_class = "\\AdTeam\\LogMonitor\\Reader\\AbstractReader";
+        $parent_class = "\\AdTeam\\LogMonitor\\Reader\\ReaderInterface";
         if (!$reflect->isSubclassOf($parent_class)) {
             throw new \RuntimeException($classname . ' must be a sub class of ' . $parent_class);
         }
 
-        return new $classname($file);
+        $obj = new $classname();
+        $obj->configure($config);
+
+        return $obj;
     }
 }
