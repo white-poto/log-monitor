@@ -1,5 +1,6 @@
 log-monitor
-===============
+===========
+[![travis](https://travis-ci.org/huyanping/log-monitor.svg)](https://travis-ci.org/huyanping/log-monitor)
 An active log monitor based on the `tail` command.
 
 Why use log-monitor?
