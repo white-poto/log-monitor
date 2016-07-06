@@ -2,7 +2,6 @@ log-monitor
 ===========
 
 [![Join the chat at https://gitter.im/huyanping/log-monitor](https://badges.gitter.im/huyanping/log-monitor.svg)](https://gitter.im/huyanping/log-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Join the chat at https://gitter.im/huyanping/log-monitor](https://badges.gitter.im/huyanping/log-monitor.svg)](https://gitter.im/huyanping/log-monitor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Latest Stable Version](https://poser.pugx.org/jenner/log-monitor/v/stable)](https://packagist.org/packages/jenner/log-monitor) 
 [![Total Downloads](https://poser.pugx.org/jenner/log-monitor/downloads)](https://packagist.org/packages/jenner/log-monitor) 
 [![Latest Unstable Version](https://poser.pugx.org/jenner/log-monitor/v/unstable)](https://packagist.org/packages/jenner/log-monitor) 
