@@ -17,9 +17,8 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $file = "/tmp/log-monitor.log";
         $this->setExpectedException("\\RuntimeException", "log file is not exists. file:" . $file);
         if(file_exists($file)) unlink($file);
-        $config = array('log_file' => $file);
         $reader = new TailReader();
-        $reader->configure($config);
+        $reader->configure($file);
     }
 
     public function testRead() {
