@@ -68,13 +68,7 @@ class TailReader implements ReaderInterface
      */
     public function read($length = null)
     {
-        if (!is_null($length)) {
-            $content = fgets($this->handle, $length);
-        } else {
-            $content = fgets($this->handle);
-        }
-
-        return $content;
+        return fgets($this->handle);
     }
 
     /**
