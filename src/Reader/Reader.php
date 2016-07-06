@@ -9,25 +9,31 @@
 namespace Jenner\LogMonitor\Reader;
 
 
-class Reader extends AbstractReader
+class Reader implements ReaderInterface
 {
-    /**
-     * @var string
-     */
     protected $file;
-
-    /**
-     * @var resource
-     */
+    protected $error_file;
     protected $handle;
-
     protected $pipes;
-
-    /**
-     * @var resource tail process
-     */
     protected $process;
 
+    // log file which need to be monitored
+    const LOG_FILE = "log_file";
+    // error log for `tail` command
+    const ERR_FILE = "err_file";
+
+    public function configure(array $config)
+    {
+        if(empty($config[self::LOG_FILE])) {
+            throw new \InvalidArgumentException("empty param " . self::LOG_FILE);
+        }
+        $this->file = $config[self::LOG_FILE];
+        if(empty($config[self::ERR_FILE])) {
+            $this->error_file = "/dev/null";
+        }else {
+            $this->error_file = $config[self::ERR_FILE];
+        }
+    }
 
     /**
      * open stream
@@ -38,7 +44,7 @@ class Reader extends AbstractReader
         $descriptors = array(
             0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-            2 => array("file", "/var/log/log-monitor.log", "a") // stderr is a file to write to
+            2 => array("file", $this->error_file, "a") // stderr is a file to write to
         );
 
         $cwd = '/tmp';
