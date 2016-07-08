@@ -42,6 +42,11 @@ class TailReader implements ReaderInterface
         $this->handle = $this->pipes[1];
     }
 
+    public function info()
+    {
+        return $this->file;
+    }
+
     /**
      * read from stream
      * @param null $length

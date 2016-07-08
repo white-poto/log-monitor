@@ -64,7 +64,7 @@ class MonitorTask extends Process
             }
             if ($this->filter->filter($line)) {
                 $message = $this->filter->getErrorMessage($line, $this->reader);
-                $this->notify->send($this->reader->getFile(), $message);
+                $this->notify->send($this->reader->info(), $message);
             }
         }
     }

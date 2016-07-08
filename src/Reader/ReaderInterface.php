@@ -18,6 +18,12 @@ interface ReaderInterface
     public function configure($file);
 
     /**
+     * get reader info for notification
+     * @return mixed
+     */
+    public function info();
+
+    /**
      * open stream
      * @return mixed
      */
